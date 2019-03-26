@@ -13,7 +13,7 @@ SRC     =   generator.c
 
 OBJ     =       $(SRC:.c=.o)
 
-NAME    =       tmp
+NAME    =   generator
 
 CFLAGS  =       -W -Wextra -Wall -ansi -pedantic -g -std=c99 -I ./include
 
