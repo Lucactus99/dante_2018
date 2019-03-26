@@ -9,7 +9,7 @@
 
 CC      =       gcc
 
-SRC     =   main.c
+SRC     =   generator.c
 
 OBJ     =       $(SRC:.c=.o)
 
