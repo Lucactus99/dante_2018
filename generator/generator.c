@@ -5,65 +5,70 @@
 ** generator
 */
 
+#include "generator.h"
 #include <stdlib.h>
 #include <sys/types.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdio.h>
 
-int get_rand_int(void)
+void algo_imperfect(int rows, int cols, generator_t *info)
 {
-    int tmp = rand_lim(1, 100000000000);
+    info->map[0][0] = 2;
+    int direction = 0;
 
-    if (tmp % 7 == 0)
-        return (1);
-    else if (tmp % 8 == 0)
-        return (2);
-    return (get_rand_int());
-}
-
-int get_number_map(int i, int j, int **map)
-{
-    if (map[i - 1][j] == 2 && map[i - 1][j + 1] == 2 && map[i - 1][j - 1] == 2)
-        return (1);
-    if (map[i - 1][j] == 2 && map[i - 1][j + 1] == 1 && map[i - 1][j - 1] == 2)
-        return (2);
-    if (map[i - 1][j] == 1 && map[i - 1][j + 1] == 2 && map[i - 1][j - 1] == 2)
-        return (1);
-    if (map[i - 1][j] == 1 && map[i - 1][j + 1] == 1 && map[i - 1][j - 1] == 2)
-        return (2);
-    if (map[i - 1][j] == 2 && map[i - 1][j + 1] == 2 && map[i - 1][j - 1] == 1)
-        return (2);
-    if (map[i - 1][j] == 2 && map[i - 1][j + 1] == 1 && map[i - 1][j - 1] == 1)
-        return (1);
-    if (map[i - 1][j] == 1 && map[i - 1][j + 1] == 2 && map[i - 1][j - 1] == 1)
-        return (2);
-    if (map[i - 1][j] == 1 && map[i - 1][j + 1] == 1 && map[i - 1][j - 1] == 1)
-        return (1);
-    return (-1);
-}
-
-int **algo_imperfect(int x, int y, int **map)
-{
-    srandom(time(NULL));
-    for (int i = 0; i < x; i++) {
-        map[0][i] = get_rand_int();
-    }
-    map[0][0] = 2;
-    map[0][1] = 2;
-    for (int i = 1; i < y; i++) {
-        map[i][0] = 1;
-        for (int j = 1; j < x - 1; j++) {
-            map[i][j] = get_number_map(i, j, map);
-            if (map[i][j] == -1)
-                exit(84);
+    for (int i = 0; i < 4; i++) {
+        direction = generate_direction();
+        printf("%d\n", direction);
+        switch (direction) {
+            case 1:
+                if (rows - 2 <= 0)
+                    continue;
+                if (info->map[rows - 2][cols] != 2) {
+                    info->map[rows - 2][cols] = 2;
+                    info->map[rows - 1][cols] = 2;
+                    algo_imperfect(rows - 2, cols, info);  
+                }
+                break;
+            case 2:
+                if (cols + 2 >= info->x - 1)
+                    continue;
+                if (info->map[rows][cols + 2] != 2) {
+                    info->map[rows][cols + 2] = 2;
+                    info->map[rows][cols + 1] = 2;
+                    algo_imperfect(rows, cols + 2, info);
+                 }
+                 break;
+            case 3:
+                if (rows + 2 >= info->y - 1)
+                    continue;
+                if (info->map[rows + 2][cols] != 2) {
+                    info->map[rows + 2][cols] = 2;
+                    info->map[rows + 1][cols] = 2;
+                    algo_imperfect(rows + 2, cols, info);
+                }
+                break;
+            case 4:
+                if (cols - 2 <= 0)
+                    continue;
+                if (info->map[rows][cols - 2] != 2) {
+                    info->map[rows][cols - 2] = 2;
+                    info->map[rows][cols - 1] = 2;
+                    algo_imperfect(rows, cols - 2, info);
+                }
+                break;
         }
-        map[i][x - 1] = 1;
     }
-    map[y - 1][x - 2] = 2;
-    map[y - 1][x - 1] = 2;
-    return (map);
 }
+
+int generate_direction(void)
+{
+    int nb = 0;
+    srand(clock());
+    nb = rand() % (5 - 1) + 1;
+    return (nb);
+}
+
 
 int **malloc_map(int x, int y, int **map)
 {
@@ -84,19 +89,22 @@ int **malloc_map(int x, int y, int **map)
 
 int main(int ac, char **av)
 {
-    int x = 0;
-    int y = 0;
+    generator_t *info = malloc(sizeof(generator_t));
+    info->x = 0;
+    info->y = 0;
+    info->rows = 0;
+    info->cols = 0;
 
     if (ac < 3)
         return (84);
     if (ac == 3) {
-        x = atoi(av[1]);
-        y = atoi(av[2]);
-        imperfect_generator(x, y);
+        info->x = atoi(av[1]);
+        info->y = atoi(av[2]);
+        imperfect_generator(info);
     }
     else if (ac == 4 && strcmp(av[3], "perfect") == 0) {
-        x = atoi(av[1]);
-        y = atoi(av[2]);
+        info->x = atoi(av[1]);
+        info->y = atoi(av[2]);
       // perfect_generator(x, y);
     }
 }
@@ -122,16 +130,16 @@ char **transform_int_tab(int **tab_int, int x, int y)
     return (tab);
 }
 
-int imperfect_generator(int x, int y)
+int imperfect_generator(generator_t *info)
 {
 
-    int **map = NULL;
+    info->map = NULL;
     char **tab = NULL;
     FILE *fp = fopen("maze.txt", "wb+");
-    map = malloc_map(x, y, map);
-    map = algo_imperfect(x, y, map);
-    tab = transform_int_tab(map, x, y);
-    for (int i = 0; i < y; i++)
+    info->map = malloc_map(info->x, info->y, info->map);
+    algo_imperfect(0, 0, info);
+    tab = transform_int_tab(info->map, info->x, info->y);
+    for (int i = 0; i < info->y; i++)
         fprintf(fp, "%s\n", tab[i]);
     return (0);
 }
