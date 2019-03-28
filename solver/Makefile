@@ -9,12 +9,16 @@
 
 CC      =       gcc
 
-SRC     =   new_solver.c\
-            list.c
+SRC     =   src/list.c\
+            src/main.c\
+            src/error.c\
+            src/create_int_tab.c\
+            src/useful_functions.c\
+            src/algorithm.c
 
 OBJ     =       $(SRC:.c=.o)
 
-NAME    =       tmp
+NAME    =       solver
 
 CFLAGS  =       -W -Wextra -Wall -ansi -pedantic -g -std=c99 -I ./include
 
