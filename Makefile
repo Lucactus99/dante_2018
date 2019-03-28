@@ -9,7 +9,7 @@
 
 CC      =       gcc
 
-SRC     =   main.c
+SRC     =   
 
 OBJ     =       $(SRC:.c=.o)
 
@@ -19,9 +19,9 @@ CFLAGS  =       -W -Wextra -Wall -ansi -pedantic -g -std=c99 -I ./include
 
 all:    $(NAME)
 
-$(NAME):	$(OBJ)
-    $(CC) $(OBJ) -o $(NAME) $(CFLAGS)
-    rm -f $(OBJ)
+$(NAME):
+    @make -sC solver/
+    @make -sC generator/
 
 clean:
     rm -f $(OBJ)
