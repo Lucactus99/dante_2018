@@ -32,6 +32,14 @@ typedef struct list_s {
     element_t *first;
 } list_t;
 
+typedef struct data_s {
+    char *buffer;
+    int **tab;
+    int i;
+    int j;
+    list_t *list;
+} data_t;
+
 // LINKED LIST
 void display_list(list_t *);
 void deletion(list_t *);
@@ -49,6 +57,6 @@ int error_handling_maze(char *);
 // ALGORITHM
 int **create_int_tab(char *);
 void display_final_tab(int **, char *);
-int **do_algo(int **, char *, list_t *);
+void algorithm(data_t *data);
 
 #endif /* !SOLVER_H_ */

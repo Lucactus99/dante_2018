@@ -16,20 +16,17 @@ int **create_int_tab(char *buffer)
     for (int i = 0; i < count_lines(buffer); i++)
         tab[i] = malloc(sizeof(int) * (count_columns(buffer) + 1));
     for (int i = 0; buffer[i] != '\0'; i++) {
-        if (buffer[i] == '\n') {
+        if (buffer[i] == 'X') {
+            tab[a][b] = 1;
+            b++;
+        } else if (buffer[i] == '*') {
+            tab[a][b] = 2;
+            b++;
+        } else {
             tab[a][b] = 0;
             b = 0;
             a++;
-        } else {
-            if (buffer[i] == 'X') {
-                tab[a][b] = 1;
-            }
-            else if (buffer[i] == '*') {
-                tab[a][b] = 2;
-            }
-            b++;
         }
     }
-    tab[a][b] = 0;
     return (tab);
 }

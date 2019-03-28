@@ -24,7 +24,7 @@ static char *open_file(int ac, char **av)
     if (buffer == NULL)
         exit(84);
     size = read(fd, buffer, sb.st_size);
-    if (size <= 0) 
+    if (size <= 0)
         exit(84);
     buffer[sb.st_size] = '\0';
     return (buffer);
@@ -34,13 +34,13 @@ int main(int ac, char **av)
 {
     int **tab;
     list_t *list = malloc(sizeof(list_t));
-    char *buffer = open_file(ac, av);
+    data_t *data = malloc(sizeof(data_t));
+    data->buffer = open_file(ac, av);
 
-    if (error_handling_maze(buffer) == 84)
+    if (error_handling_maze(data->buffer) == 84)
         return (84);
-    list = initialisation();
-    tab = create_int_tab(buffer);
-    tab = do_algo(tab, buffer, list);
-    display_final_tab(tab, buffer);
+    data->list = initialisation();
+    data->tab = create_int_tab(data->buffer);
+    algorithm(data);
     return (0);
 }
