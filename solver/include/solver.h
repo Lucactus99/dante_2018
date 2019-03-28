@@ -32,18 +32,23 @@ typedef struct list_s {
     element_t *first;
 } list_t;
 
-void display_list(list_t *list);
-void deletion(list_t *list);
-void insertion(list_t *list, int direction);
+// LINKED LIST
+void display_list(list_t *);
+void deletion(list_t *);
+void insertion(list_t *, int);
 list_t *initialisation(void);
-int get_last_direction(list_t *list);
-void put_done_direction(list_t *list, int direction);
-int count_lines(char *buffer);
-int count_columns(char *buffer);
-int error_handling_maze(char *buffer);
-int **create_int_tab(char *buffer);
-void display_final_tab(int **tab, char *buffer);
-int **do_algo(int **tab, char *buffer, list_t *list);
-int is_direction_done(list_t *list, int direction);
+int is_direction_done(list_t *, int);
+
+// USEFUL
+int count_lines(char *);
+int count_columns(char *);
+
+// ERROR
+int error_handling_maze(char *);
+
+// ALGORITHM
+int **create_int_tab(char *);
+void display_final_tab(int **, char *);
+int **do_algo(int **, char *, list_t *);
 
 #endif /* !SOLVER_H_ */
