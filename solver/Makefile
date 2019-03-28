@@ -9,7 +9,8 @@
 
 CC      =       gcc
 
-SRC     =   main.c
+SRC     =   new_solver.c\
+            list.c
 
 OBJ     =       $(SRC:.c=.o)
 
