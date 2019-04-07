@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2019
-** CPE_dante_2018
+** generator.h
 ** File description:
-** solver
+** dante generator.h
 */
 
-#ifndef SOLVER_H_
-#define SOLVER_H_
+#ifndef GENERATOR_H_
+#define GENERATOR_H_
 
 #include <sys/stat.h>
 #include <unistd.h>
@@ -27,6 +27,8 @@ typedef struct element_s {
     struct element_s *next;
     enum direction dir;
     int done[4];
+    int i;
+    int j;
 } element_t;
 
 typedef struct list_s {
@@ -34,7 +36,8 @@ typedef struct list_s {
 } list_t;
 
 typedef struct data_s {
-    char *buffer;
+    int width;
+    int height;
     int **tab;
     int i;
     int j;
@@ -44,20 +47,17 @@ typedef struct data_s {
 // LINKED LIST
 void display_list(list_t *);
 void deletion(list_t *);
-void insertion(list_t *, int);
+void insertion(list_t *, int, int);
 list_t *initialisation(void);
 int is_direction_done(list_t *, int);
 
-// USEFUL
-int count_lines(char *);
-int count_columns(char *);
+int my_rand(void);
+int error_handling_generator(int ac, char **av);
+void perfect_algorithm(data_t *data);
+int **create_int_tab(int width, int height);
+int count_lines(char *buffer);
+int count_columns(char *buffer);
+void display_int_tab(int **tab, int, int);
+void display_final_tab(int **tab, int, int);
 
-// ERROR
-int error_handling_solver(char *);
-
-// ALGORITHM
-int **create_int_tab(char *);
-void display_final_tab(int **, char *);
-void algorithm(data_t *data);
-
-#endif /* !SOLVER_H_ */
+#endif

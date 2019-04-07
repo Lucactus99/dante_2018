@@ -54,7 +54,7 @@ static void check_solution(char *buffer)
     }
 }
 
-int error_handling_maze(char *buffer)
+int error_handling_solver(char *buffer)
 {
     if (check_rect(buffer) == 84)
         return (84);

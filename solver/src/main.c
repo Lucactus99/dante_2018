@@ -33,11 +33,10 @@ static char *open_file(int ac, char **av)
 int main(int ac, char **av)
 {
     int **tab;
-    list_t *list = malloc(sizeof(list_t));
     data_t *data = malloc(sizeof(data_t));
     data->buffer = open_file(ac, av);
 
-    if (error_handling_maze(data->buffer) == 84)
+    if (error_handling_solver(data->buffer) == 84)
         return (84);
     data->list = initialisation();
     data->tab = create_int_tab(data->buffer);

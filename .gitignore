@@ -1,0 +1,7 @@
+.vscode/
+*.a
+*.o
+*.txt
+solver/solver
+solver/mazes
+generator/generator
