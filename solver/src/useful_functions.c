@@ -47,6 +47,7 @@ void display_final_tab(int **tab, char *buffer)
             else
                 printf("*");
         }
-        printf("\n");
+        if (i < count_lines(buffer) - 1)
+            printf("\n");
     }
 }
