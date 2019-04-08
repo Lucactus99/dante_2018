@@ -45,6 +45,18 @@ void deletion(list_t *list)
     }
 }
 
+void insertion_dir(list_t *list, int direction)
+{
+    element_t *new = malloc(sizeof(element_t));
+    if (list == NULL || new == NULL)
+        exit(84);
+    for (int i = 0; i < 4; i++)
+        new->done[i] = 0;
+    new->dir = direction;
+    new->next = list->first;
+    list->first = new;
+}
+
 void insertion(list_t *list, int i, int j)
 {
     element_t *new = malloc(sizeof(element_t));

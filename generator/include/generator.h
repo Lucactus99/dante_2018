@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 
 enum direction {
     LEFT,
@@ -36,6 +37,8 @@ typedef struct list_s {
 } list_t;
 
 typedef struct data_s {
+    char *filename;
+    int write_in_file;
     int width;
     int height;
     int **tab;
@@ -50,7 +53,11 @@ void deletion(list_t *);
 void insertion(list_t *, int, int);
 list_t *initialisation(void);
 int is_direction_done(list_t *, int);
+void insertion_dir(list_t *list, int direction);
 
+int algorithm(data_t *data);
+void write_in_file(data_t *data);
+void imperfect_algorithm(data_t *data);
 int my_rand(void);
 int error_handling_generator(int ac, char **av);
 void perfect_algorithm(data_t *data);

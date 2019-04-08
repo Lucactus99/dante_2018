@@ -53,7 +53,7 @@ void display_final_tab(int **tab, int width, int height)
         for (int j = 0; j < width; j++) {
             if (tab[i][j] == 1)
                 printf("X");
-            else if (tab[i][j] == 2)
+            else
                 printf("*");
         }
         if (i < height - 1)

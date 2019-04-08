@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** CPE_dante_2018
 ** File description:
-** algorithm
+** perfect_algorithm
 */
 
 #include "generator.h"
@@ -125,6 +125,31 @@ void check_end(int **tab, int width, int height)
     }
 }
 
+void write_in_file(data_t *data)
+{
+    FILE *fp;
+
+    if (data->filename != NULL)
+        fp = fopen(data->filename, "wb+");
+    else
+        fp = fopen("maze.txt", "wb+");
+    if (fp == NULL) {
+        perror("fp");
+        exit(84);
+    }
+    for (int i = 0; i < data->height; i++) {
+        for (int j = 0; j < data->width; j++) {
+            if (data->tab[i][j] == 1)
+                fprintf(fp, "X");
+            else if (data->tab[i][j] == 2)
+                fprintf(fp, "*");
+        }
+        if (i < data->height - 1)
+            fprintf(fp, "\n");
+    }
+    fclose(fp);
+}
+
 void perfect_algorithm(data_t *data)
 {
     int tmp = 0;
@@ -154,7 +179,14 @@ void perfect_algorithm(data_t *data)
                 deletion(data->list);
                 if (data->list->first->next == NULL) {
                     check_end(data->tab, data->width, data->height);
+                    while (algorithm(data) == 84) {
+                        data->list = initialisation();
+                        data->tab = create_int_tab(data->width, data->height);
+                        perfect_algorithm(data);
+                    }
                     display_final_tab(data->tab, data->width, data->height);
+                    if (data->write_in_file == 1)
+                        write_in_file(data);
                     exit(0);
                 }
                 data->i = data->list->first->i;

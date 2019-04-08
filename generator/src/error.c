@@ -18,7 +18,7 @@ static int check_num(char *str)
 
 int error_handling_generator(int ac, char **av)
 {
-    if (ac < 3 || ac > 4)
+    if (ac < 3 || ac > 6)
         return (84);
     if (check_num(av[1]) == 84 || check_num(av[2]) == 84)
         return (84);

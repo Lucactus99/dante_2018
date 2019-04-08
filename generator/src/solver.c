@@ -2,10 +2,10 @@
 ** EPITECH PROJECT, 2019
 ** CPE_dante_2018
 ** File description:
-** algorithm
+** solver
 */
 
-#include "solver.h"
+#include "generator.h"
 
 void move_pos(data_t *data, int pos, int direction)
 {
@@ -21,7 +21,7 @@ void move_pos(data_t *data, int pos, int direction)
             data->j--;
     }
     data->tab[data->i][data->j] = 3;
-    insertion(data->list, direction);
+    insertion_dir(data->list, direction);
 }
 
 static int check_no_solution(list_t *list)
@@ -35,14 +35,13 @@ static int check_no_solution(list_t *list)
     return (0);
 }
 
-void go_back(data_t *data)
+int go_back(data_t *data)
 {
     int direction = data->list->first->dir;
 
     deletion(data->list);
     if (check_no_solution(data->list) == 1) {
-        printf("no solution found\n");
-        exit(0);
+        return (84);
     }
     data->list->first->done[direction] = 1;
     if (direction == UP) {
@@ -63,15 +62,15 @@ void go_back(data_t *data)
     }
 }
 
-void do_algo(data_t *data)
+int do_algo(data_t *data)
 {
     int direction = 4;
 
-    if (data->j + 1 < count_columns(data->buffer) &&
+    if (data->j + 1 < data->width &&
     data->tab[data->i][data->j + 1] == 2 &&
     is_direction_done(data->list, RIGHT) == 0) {
         move_pos(data, 1, RIGHT);
-    } else if (data->i + 1 < count_lines(data->buffer) &&
+    } else if (data->i + 1 < data->height &&
     data->tab[data->i + 1][data->j] == 2 &&
     is_direction_done(data->list, DOWN) == 0) {
         move_pos(data, 0, DOWN);
@@ -82,18 +81,21 @@ void do_algo(data_t *data)
     is_direction_done(data->list, LEFT) == 0) {
         move_pos(data, 1, LEFT);
     } else {
-        go_back(data);
+        if (go_back(data) == 84)
+            return (84);
     }
 }
 
-void algorithm(data_t *data)
+int algorithm(data_t *data)
 {
     data->i = 0;
     data->j = 0;
     data->tab[0][0] = 3;
-    while (data->i < count_lines(data->buffer) - 1 ||
-    data->j < count_columns(data->buffer) - 1) {
-        do_algo(data);
+    while (data->i < data->height - 1 ||
+    data->j < data->width - 1) {
+        if (do_algo(data) == 84) {
+            return (84);
+        }
     }
-    display_final_tab(data->tab, data->buffer);
+    return (0);
 }
