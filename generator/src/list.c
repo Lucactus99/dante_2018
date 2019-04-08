@@ -5,13 +5,6 @@
 ** list
 */
 
-/*
-** EPITECH PROJECT, 2019
-** CPE_dante_2018
-** File description:
-** list
-*/
-
 #include "generator.h"
 
 int is_direction_done(list_t *list, int direction)
