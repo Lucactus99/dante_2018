@@ -16,7 +16,7 @@ SRC_NAMES 	:= $(addsuffix .c, $(FILES))
 SRC		:= $(addprefix src/, $(SRC_NAMES))
 
 CINC		:= -I include/
-CFLAGS		:= -W   -g
+CFLAGS		:= -W -Wall -Wextra -pedantic -g
 
 OBJ             := $(SRC:src/%.c=%.o)
 

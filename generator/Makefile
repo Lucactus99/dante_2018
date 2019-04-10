@@ -10,13 +10,14 @@
 CC		:= gcc
 
 NAME		:= generator
-FILES		:= main perfect_algorithm imperfect_algorithm error list useful_functions create_int_tab solver
+FILES		:= main perfect_algorithm error list useful_functions create_int_tab solver write_in_file \
+                        move_left move_right move_up move_down imperfect_algorithm
 
 SRC_NAMES 	:= $(addsuffix .c, $(FILES))
 SRC		:= $(addprefix src/, $(SRC_NAMES))
 
 CINC		:= -I include/
-CFLAGS		:= -W   -g
+CFLAGS		:= -W -Wall -Wextra -pedantic -g
 
 OBJ             := $(SRC:src/%.c=%.o)
 

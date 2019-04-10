@@ -7,29 +7,42 @@
 
 #include "generator.h"
 
-void imperfect_algorithm(data_t *data)
+static int make_loop(data_t *data)
 {
-    int direction = 0;
+    int h = my_rand() % (data->height / 2);
 
-    data->i = 0;
-    data->j = 0;
-    for (int i = 1; i < data->height; i++) {
-        for (int j = 0; j < data->width - 1; j++) {
-            data->tab[i][j] = my_rand() % 2;
-            data->tab[i][j] += 1;
+    h++;
+    for (int j = 1; j < data->width - 1; j++) {
+        if (data->tab[h][j] == 1) {
+            if ((data->tab[h][j - 1] == 2 && data->tab[h][j + 1] == 2
+            && data->tab[h - 1][j] == 1 && data->tab[h + 1][j] == 1) ||
+            (data->tab[h][j - 1] == 1 && data->tab[h][j + 1] == 1
+            && data->tab[h - 1][j] == 2 && data->tab[h + 1][j] == 2)) {
+                data->tab[h][j] = 2;
+                return (1);
+            }
         }
     }
-    while (data->i < data->height - 1 || data->j < data->width - 2) {
-        direction = my_rand() % 2;
-        if (direction == 0 && data->j < data->width - 2) {
-            data->j++;
-            data->tab[data->i][data->j] = 2;
-        } else if (data->i < data->height - 1) {
-            data->i++;
-            data->tab[data->i][data->j] = 2;
+    return (make_loop(data));
+}
+
+static int make_cluster(data_t *data)
+{
+    for (int i = 1; i < data->height - 1; i++) {
+        if (data->tab[i][data->width - 1] == 2) {
+            if (data->tab[i][data->width - 2] == 2
+            && (data->tab[i - 1][data->width - 1] == 2
+            || data->tab[i + 1][data->width - 1] == 2)) {
+                data->tab[i][data->width - 1] = 1;
+                return (1);
+            }
         }
     }
-    display_final_tab(data->tab, data->height, data->width);
-    if (data->write_in_file == 1)
-        write_in_file(data);
+    return (1);
+}
+
+void do_imperfect(data_t *data)
+{
+    make_cluster(data);
+    make_loop(data);
 }

@@ -7,19 +7,26 @@
 
 #include "solver.h"
 
-static char *open_file(int ac, char **av)
+static int get_fd(int ac, char **av)
 {
     int fd;
+
+    if (ac != 2)
+        exit(84);
+    fd = open(av[1], O_RDONLY);
+    if (fd < 0)
+        exit(84);
+    return (fd);
+}
+
+static char *open_file(int ac, char **av)
+{
+    int fd = get_fd(ac, av);
     int size;
     char *buffer = NULL;
     struct stat sb;
 
-    if (ac != 2)
-        exit(84);
     stat(av[1], &sb);
-    fd = open(av[1], O_RDONLY);
-    if (fd < 0)
-        exit(84);
     buffer = malloc(sizeof(char) * (sb.st_size + 1));
     if (buffer == NULL)
         exit(84);
@@ -36,7 +43,6 @@ static char *open_file(int ac, char **av)
 
 int main(int ac, char **av)
 {
-    int **tab;
     data_t *data = malloc(sizeof(data_t));
     data->buffer = open_file(ac, av);
 

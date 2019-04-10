@@ -18,9 +18,19 @@ static int check_num(char *str)
 
 int error_handling_generator(int ac, char **av)
 {
-    if (ac < 3 || ac > 6)
+    if (ac == 2) {
+        if (strcmp(av[1], "-h") == 0) {
+            display_help();
+            exit(0);
+        }
+    }
+    if (ac < 3 || ac > 6) {
+        display_help();
         return (84);
-    if (check_num(av[1]) == 84 || check_num(av[2]) == 84)
+    }
+    if (check_num(av[1]) == 84 || check_num(av[2]) == 84) {
+        display_help();
         return (84);
+    }
     return (0);
 }

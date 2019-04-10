@@ -7,7 +7,7 @@
 
 #include "generator.h"
 
-int check_arg_file(int ac, char **av, char **filename)
+static int check_arg_file(int ac, char **av, char **filename)
 {
     for (int i = 1; i < ac; i++) {
         if (strcmp(av[i], "txt") == 0) {
@@ -19,7 +19,7 @@ int check_arg_file(int ac, char **av, char **filename)
     return (0);
 }
 
-int check_perfect(int ac, char **av)
+static int check_perfect(int ac, char **av)
 {
     for (int i = 1; i < ac; i++) {
         if (strcmp(av[i], "perfect") == 0) {
@@ -29,9 +29,26 @@ int check_perfect(int ac, char **av)
     return (0);
 }
 
+void display_help(void)
+{
+    int fd = open("./src/help", O_RDONLY);
+    char buffer[182];
+
+    if (fd < 0) {
+        perror("fd");
+        exit(84);
+    }
+    if (read(fd, buffer, 182) <= 0) {
+        perror("read");
+        exit(84);
+    }
+    buffer[181] = '\0';
+    printf("%s\n", buffer);
+    close(fd);
+}
+
 int main(int ac, char **av)
 {
-    int **tab;
     data_t *data = malloc(sizeof(data_t));
 
     if (error_handling_generator(ac, av) == 84)
@@ -43,8 +60,9 @@ int main(int ac, char **av)
     data->height = atoi(av[2]);
     data->tab = create_int_tab(data->width, data->height);
     if (check_perfect(ac, av) == 1)
-        perfect_algorithm(data);
+        data->imperfect = 0;
     else
-        imperfect_algorithm(data);
+        data->imperfect = 1;
+    perfect_algorithm(data);
     return (0);
 }

@@ -14,26 +14,6 @@ int is_direction_done(list_t *list, int direction)
     return (0);
 }
 
-void display_list(list_t *list)
-{
-    if (list == NULL)
-        exit(84);
-    element_t *actual = list->first;
-    while (actual != NULL) {
-        if (actual->dir == 0)
-            printf("LEFT\n");
-        if (actual->dir == 1)
-            printf("UP\n");
-        if (actual->dir == 2)
-            printf("RIGHT\n");
-        if (actual->dir == 3)
-            printf("DOWN\n");
-        if (actual->dir == 4)
-            printf("NONE\n");
-        actual = actual->next;
-    }
-}
-
 void deletion(list_t *list)
 {
     if (list == NULL)

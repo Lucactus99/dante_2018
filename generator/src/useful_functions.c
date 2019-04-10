@@ -49,14 +49,23 @@ void display_int_tab(int **tab, int width, int height)
 
 void display_final_tab(int **tab, int width, int height)
 {
+    char **char_tab = malloc(sizeof(char *) * (height + 1));
+
+    for (int i = 0; i < height; i++)
+        char_tab[i] = malloc(sizeof(char) * (width + 1));
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             if (tab[i][j] == 1)
-                printf("X");
+                char_tab[i][j] = 'X';
             else
-                printf("*");
+                char_tab[i][j] = '*';
         }
-        if (i < height - 1)
+        char_tab[i][width] = '\0';
+    }
+    char_tab[height] = NULL;
+    for (int i = 0; char_tab[i] != NULL; i++) {
+        printf("%s", char_tab[i]);
+        if (char_tab[i + 1] != NULL)
             printf("\n");
     }
 }

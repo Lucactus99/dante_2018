@@ -7,7 +7,7 @@
 
 #include "generator.h"
 
-void move_pos(data_t *data, int pos, int direction)
+static void move_pos(data_t *data, int pos, int direction)
 {
     if (pos == 0) {
         if (direction == DOWN)
@@ -35,37 +35,29 @@ static int check_no_solution(list_t *list)
     return (0);
 }
 
-int go_back(data_t *data)
+static int go_back(data_t *data)
 {
     int direction = data->list->first->dir;
 
     deletion(data->list);
-    if (check_no_solution(data->list) == 1) {
+    if (check_no_solution(data->list) == 1)
         return (84);
-    }
     data->list->first->done[direction] = 1;
-    if (direction == UP) {
+    if (direction != NONE)
         data->tab[data->i][data->j] = 2;
+    if (direction == UP)
         data->i++;
-    }
-    if (direction == LEFT) {
-        data->tab[data->i][data->j] = 2;
+    if (direction == LEFT)
         data->j++;
-    }
-    if (direction == DOWN) {
-        data->tab[data->i][data->j] = 2;
+    if (direction == DOWN)
         data->i--;
-    }
-    if (direction == RIGHT) {
-        data->tab[data->i][data->j] = 2;
+    if (direction == RIGHT)
         data->j--;
-    }
+    return (0);
 }
 
-int do_algo(data_t *data)
+static int do_algo(data_t *data)
 {
-    int direction = 4;
-
     if (data->j + 1 < data->width &&
     data->tab[data->i][data->j + 1] == 2 &&
     is_direction_done(data->list, RIGHT) == 0) {
@@ -84,6 +76,7 @@ int do_algo(data_t *data)
         if (go_back(data) == 84)
             return (84);
     }
+    return (0);
 }
 
 int algorithm(data_t *data)
@@ -91,8 +84,7 @@ int algorithm(data_t *data)
     data->i = 0;
     data->j = 0;
     data->tab[0][0] = 3;
-    while (data->i < data->height - 1 ||
-    data->j < data->width - 1) {
+    while (data->i < data->height - 1 || data->j < data->width - 1) {
         if (do_algo(data) == 84) {
             return (84);
         }

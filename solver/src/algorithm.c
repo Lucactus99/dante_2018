@@ -7,7 +7,7 @@
 
 #include "solver.h"
 
-void move_pos(data_t *data, int pos, int direction)
+static void move_pos(data_t *data, int pos, int direction)
 {
     if (pos == 0) {
         if (direction == DOWN)
@@ -35,7 +35,7 @@ static int check_no_solution(list_t *list)
     return (0);
 }
 
-void go_back(data_t *data)
+static void go_back(data_t *data)
 {
     int direction = data->list->first->dir;
 
@@ -45,28 +45,20 @@ void go_back(data_t *data)
         exit(0);
     }
     data->list->first->done[direction] = 1;
-    if (direction == UP) {
+    if (direction != NONE)
         data->tab[data->i][data->j] = 2;
+    if (direction == UP)
         data->i++;
-    }
-    if (direction == LEFT) {
-        data->tab[data->i][data->j] = 2;
+    if (direction == LEFT)
         data->j++;
-    }
-    if (direction == DOWN) {
-        data->tab[data->i][data->j] = 2;
+    if (direction == DOWN)
         data->i--;
-    }
-    if (direction == RIGHT) {
-        data->tab[data->i][data->j] = 2;
+    if (direction == RIGHT)
         data->j--;
-    }
 }
 
-void do_algo(data_t *data)
+static void do_algo(data_t *data)
 {
-    int direction = 4;
-
     if (data->j + 1 < count_columns(data->buffer) &&
     data->tab[data->i][data->j + 1] == 2 &&
     is_direction_done(data->list, RIGHT) == 0) {

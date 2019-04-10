@@ -1,0 +1,4 @@
+Usage:  ./generator x y [options]
+Options:
+    perfect                 make a perfect maze
+    txt [name]              write the generated maze in a file (name by default: maze.txt)
