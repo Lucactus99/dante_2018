@@ -26,6 +26,10 @@ static char *open_file(int ac, char **av)
     size = read(fd, buffer, sb.st_size);
     if (size <= 0)
         exit(84);
+    if (size >= 1000000) {
+        printf("No solution found\n");
+        exit(0);
+    }
     buffer[sb.st_size] = '\0';
     return (buffer);
 }
