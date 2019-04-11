@@ -11,20 +11,47 @@ static void check_end(int **tab, int width, int height)
 {
     width--;
     height--;
-    if (tab[height][width - 1] == 1 && tab[height - 1][width] == 1) {
-        if (tab[height - 1][width - 1] == 2 && tab[height - 2][width - 1] == 1)
+    if (tab[height - 1][width] == 2 || tab[height][width - 1] == 2)
+        return;
+    if (tab[height - 1][width] == 1 && (tab[height - 1][width - 1] == 2 && tab[height - 2][width] == 1)) {
+        tab[height - 1][width] = 2;
+        return;
+    }
+    if (tab[height - 1][width] == 1 && (tab[height - 1][width - 1] == 1 && tab[height - 2][width] == 2)) {
+        tab[height - 1][width] = 2;
+        return;
+    }
+    if (tab[height][width - 1] == 1 && (tab[height - 1][width - 1] == 2 && tab[height][width - 2] == 1)) {
+        tab[height][width - 1] = 2;
+        return;
+    }
+    if (tab[height][width - 1] == 1 && (tab[height - 1][width - 1] == 1 && tab[height][width - 2] == 2)) {
+        tab[height][width - 1] = 2;
+        return;
+    }
+    if (tab[height - 1][width] == 1 && tab[height - 1][width - 1] == 2 && tab[height - 2][width] == 2) {
+        if (tab[height - 1][width - 2] == 1) {
             tab[height - 1][width - 1] = 1;
-        else if (tab[height - 1][width - 2] == 2
-        && tab[height - 2][width - 2] == 1) {
-            tab[height - 1][width - 2] = 1;
-        }
-        if (tab[height][width - 2] == 2)
-            tab[height][width - 1] = 2;
-        else if (tab[height - 2][width] == 2)
+            tab[height - 1][width] = 2;      
+            return;
+        } else if (tab[height - 3][width] == 1) {
+            tab[height - 2][width] = 1;
             tab[height - 1][width] = 2;
+            return;
+        }
+    }
+    if (tab[height][width - 1] == 1 && tab[height - 1][width - 1] == 2 && tab[height][width - 2] == 2) {
+        if (tab[height - 2][width - 1] == 1) {
+            tab[height - 1][width - 1] = 1;
+            tab[height][width - 1] = 2;            
+            return;
+        } else if (tab[height][width - 3] == 1) {
+            tab[height][width - 2] = 1;
+            tab[height][width - 1] = 2;
+            return;
+        }
     }
 }
-
 static void is_end(data_t *data)
 {
     deletion(data->list);

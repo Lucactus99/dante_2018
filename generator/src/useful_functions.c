@@ -64,8 +64,8 @@ void display_final_tab(int **tab, int width, int height)
     }
     char_tab[height] = NULL;
     for (int i = 0; char_tab[i] != NULL; i++) {
-        printf("%s", char_tab[i]);
+        write(1, char_tab[i], width);
         if (char_tab[i + 1] != NULL)
-            printf("\n");
+            write(1, "\n", 1);
     }
 }

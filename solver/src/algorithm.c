@@ -41,7 +41,7 @@ static void go_back(data_t *data)
 
     deletion(data->list);
     if (check_no_solution(data->list) == 1) {
-        printf("no solution found\n");
+        printf("no solution found");
         exit(0);
     }
     data->list->first->done[direction] = 1;

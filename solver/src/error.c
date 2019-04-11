@@ -44,12 +44,12 @@ static void check_solution(char *buffer)
     int i = 0;
 
     if (buffer[0] == 'X') {
-        printf("No solution found\n");
+        printf("No solution found");
         exit(0);
     }
     for (; buffer[i + 1] != '\0'; i++);
     if (buffer[i] == 'X') {
-        printf("No solution found\n");
+        printf("No solution found");
         exit(0);
     }
 }
