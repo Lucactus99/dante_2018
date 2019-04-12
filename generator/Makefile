@@ -10,7 +10,7 @@
 CC		:= gcc
 
 NAME		:= generator
-FILES		:= main perfect_algorithm error list useful_functions create_int_tab check write_in_file \
+FILES		:= main perfect_algorithm error list useful_functions create_int_tab write_in_file \
                         move_left move_right move_up move_down imperfect_algorithm
 
 SRC_NAMES 	:= $(addsuffix .c, $(FILES))

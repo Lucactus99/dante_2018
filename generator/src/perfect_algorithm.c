@@ -7,59 +7,22 @@
 
 #include "generator.h"
 
-static void check_end(int **tab, int width, int height)
+static int check_end(data_t *data)
 {
-    width--;
-    height--;
-    if (tab[height - 1][width] == 2 || tab[height][width - 1] == 2)
-        return;
-    if (tab[height - 1][width] == 1 && (tab[height - 1][width - 1] == 2 && tab[height - 2][width] == 1)) {
-        tab[height - 1][width] = 2;
-        return;
-    }
-    if (tab[height - 1][width] == 1 && (tab[height - 1][width - 1] == 1 && tab[height - 2][width] == 2)) {
-        tab[height - 1][width] = 2;
-        return;
-    }
-    if (tab[height][width - 1] == 1 && (tab[height - 1][width - 1] == 2 && tab[height][width - 2] == 1)) {
-        tab[height][width - 1] = 2;
-        return;
-    }
-    if (tab[height][width - 1] == 1 && (tab[height - 1][width - 1] == 1 && tab[height][width - 2] == 2)) {
-        tab[height][width - 1] = 2;
-        return;
-    }
-    if (tab[height - 1][width] == 1 && tab[height - 1][width - 1] == 2 && tab[height - 2][width] == 2) {
-        if (tab[height - 1][width - 2] == 1) {
-            tab[height - 1][width - 1] = 1;
-            tab[height - 1][width] = 2;      
-            return;
-        } else if (tab[height - 3][width] == 1) {
-            tab[height - 2][width] = 1;
-            tab[height - 1][width] = 2;
-            return;
-        }
-    }
-    if (tab[height][width - 1] == 1 && tab[height - 1][width - 1] == 2 && tab[height][width - 2] == 2) {
-        if (tab[height - 2][width - 1] == 1) {
-            tab[height - 1][width - 1] = 1;
-            tab[height][width - 1] = 2;            
-            return;
-        } else if (tab[height][width - 3] == 1) {
-            tab[height][width - 2] = 1;
-            tab[height][width - 1] = 2;
-            return;
-        }
-    }
+    if (data->tab[data->height - 1][data->width - 1] == 1)
+        return (84);
+    if (data->tab[data->height - 2][data->width - 1] == 1 && data->tab[data->height - 1][data->width - 2] == 1)
+        return (84);
+    return (0);
 }
+
 static void is_end(data_t *data)
 {
     deletion(data->list);
     if (data->list->first->next == NULL) {
-        check_end(data->tab, data->width, data->height);
         if (data->imperfect == 1)
             do_imperfect(data);
-        while (checker(data) == 84) {
+        while (check_end(data) == 84) {
             data->list = initialisation();
             data->tab = create_int_tab(data->width, data->height);
             perfect_algorithm(data);

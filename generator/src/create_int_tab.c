@@ -22,6 +22,5 @@ int **create_int_tab(int width, int height)
         }
     }
     tab[0][0] = 2;
-    tab[i - 1][j - 1] = 2;
     return (tab);
 }
