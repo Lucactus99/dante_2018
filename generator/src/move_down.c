@@ -13,11 +13,6 @@ int go_down(data_t *data)
 
     if (i + 1 >= data->height)
         return (NONE);
-    if (i + 1 == data->height - 1 && j == data->width - 1) {
-        data->tab[i + 1][j] = 2;
-        data->i++;
-        return (DOWN);
-    }
     if (j - 1 < 0 && j + 1 > data->width)
         return (NONE);
     if (i + 2 < data->height) {

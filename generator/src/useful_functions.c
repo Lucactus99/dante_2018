@@ -52,19 +52,19 @@ void display_final_tab(int **tab, int width, int height)
     char **char_tab = malloc(sizeof(char *) * (height + 1));
 
     for (int i = 0; i < height; i++)
-        char_tab[i] = malloc(sizeof(char) * (width + 1));
+        char_tab[i] = malloc(sizeof(char) * (width + 2));
     for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
+        for (int j = 0; j <= width; j++) {
             if (tab[i][j] == 1)
                 char_tab[i][j] = 'X';
             else
                 char_tab[i][j] = '*';
         }
-        char_tab[i][width] = '\0';
+        char_tab[i][width + 1] = '\0';
     }
     char_tab[height] = NULL;
     for (int i = 0; char_tab[i] != NULL; i++) {
-        write(1, char_tab[i], width);
+        write(1, char_tab[i], width + 1);
         if (char_tab[i + 1] != NULL)
             write(1, "\n", 1);
     }

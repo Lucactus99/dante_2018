@@ -14,11 +14,6 @@ int go_right(data_t *data)
 
     if (j + 1 >= data->width)
         return (NONE);
-    if (j + 1 == data->width - 1 && i == data->height - 1) {
-        data->tab[i][j + 1] = 2;
-        data->j++;
-        return (RIGHT);
-    }
     if (i - 1 < 0 && i + 1 >= data->height)
         return (NONE);
     if (j + 2 < data->width) {
