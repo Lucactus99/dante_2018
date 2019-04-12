@@ -46,7 +46,6 @@ static void do_direction(data_t *data)
     int tmp = 0;
 
     while (direction == NONE) {
-        tmp++;
         direction = my_rand() % 4;
         if (direction == LEFT)
             direction = go_left(data);
@@ -56,6 +55,8 @@ static void do_direction(data_t *data)
             direction = go_down(data);
         if (direction == UP)
             direction = go_up(data);
+        if (direction == NONE)
+            tmp++;
         if (tmp >= 10) {
             is_end(data);
             tmp = 0;
