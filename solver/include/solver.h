@@ -43,7 +43,6 @@ typedef struct data_s {
 } data_t;
 
 // LINKED LIST
-void display_list(list_t *);
 void deletion(list_t *);
 void insertion(list_t *, int);
 list_t *initialisation(void);
@@ -52,13 +51,13 @@ int is_direction_done(list_t *, int);
 // USEFUL
 int count_lines(char *);
 int count_columns(char *);
-char **transform_2d(char *tmp, char sep);
+char **transform_2d(char *, char);
+void display_final_tab(char **, char *);
+
 // ERROR
 int error_handling_solver(char *);
 
 // ALGORITHM
-int **create_int_tab(char *);
-void display_final_tab(char **, char *);
-void algorithm(data_t *data);
+void algorithm(data_t *);
 
 #endif /* !SOLVER_H_ */

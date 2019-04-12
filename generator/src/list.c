@@ -7,13 +7,6 @@
 
 #include "generator.h"
 
-int is_direction_done(list_t *list, int direction)
-{
-    if (list->first->done[direction] == 1)
-        return (1);
-    return (0);
-}
-
 void deletion(list_t *list)
 {
     if (list == NULL)
