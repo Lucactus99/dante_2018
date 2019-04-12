@@ -12,7 +12,7 @@ static int check_rect(char *buffer)
     int length = 0;
     int counter = 0;
 
-    for (int i = 0; buffer[i] != '\n'; i++)
+    for (int i = 0; buffer[i] != '\n' && buffer[i] != '\0'; i++)
         length++;
     for (int i = 0; buffer[i] != '\0'; i++) {
         counter++;
