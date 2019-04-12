@@ -11,8 +11,10 @@ static int check_end(data_t *data)
 {
     if (data->tab[data->height - 1][data->width - 1] == 1)
         return (84);
-    if (data->tab[data->height - 2][data->width - 1] == 1 && data->tab[data->height - 1][data->width - 2] == 1)
+    if (data->tab[data->height - 2][data->width - 1] == 1
+    && data->tab[data->height - 1][data->width - 2] == 1) {
         return (84);
+    }
     return (0);
 }
 
