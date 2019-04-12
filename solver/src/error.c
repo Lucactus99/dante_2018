@@ -16,10 +16,6 @@ static int check_rect(char *buffer)
         length++;
     for (int i = 0; buffer[i] != '\0'; i++) {
         counter++;
-        if (buffer[i + 1] == '\0') {
-            if (buffer[i] == '\n')
-                return (84);
-        }
         if (buffer[i] == '\n') {
             if (counter != length + 1)
                 return (84);
