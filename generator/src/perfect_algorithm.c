@@ -59,7 +59,7 @@ static void is_end(data_t *data)
         check_end(data->tab, data->width, data->height);
         if (data->imperfect == 1)
             do_imperfect(data);
-        while (algorithm(data) == 84) {
+        while (checker(data) == 84) {
             data->list = initialisation();
             data->tab = create_int_tab(data->width, data->height);
             perfect_algorithm(data);

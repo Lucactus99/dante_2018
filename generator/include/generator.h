@@ -56,7 +56,7 @@ list_t *initialisation(void);
 int is_direction_done(list_t *, int);
 void insertion_dir(list_t *list, int direction);
 
-int algorithm(data_t *data);
+int checker(data_t *data);
 void write_in_file(data_t *data);
 int my_rand(void);
 int error_handling_generator(int ac, char **av);

@@ -20,7 +20,7 @@ static void move_pos(data_t *data, int pos, int direction)
         else
             data->j--;
     }
-    data->tab[data->i][data->j] = 3;
+    data->tab[data->i][data->j] = 'o';
     insertion(data->list, direction);
 }
 
@@ -46,7 +46,7 @@ static void go_back(data_t *data)
     }
     data->list->first->done[direction] = 1;
     if (direction != NONE)
-        data->tab[data->i][data->j] = 2;
+        data->tab[data->i][data->j] = '*';
     if (direction == UP)
         data->i++;
     if (direction == LEFT)
@@ -60,17 +60,17 @@ static void go_back(data_t *data)
 static void do_algo(data_t *data)
 {
     if (data->j + 1 < count_columns(data->buffer) &&
-    data->tab[data->i][data->j + 1] == 2 &&
+    data->tab[data->i][data->j + 1] == '*' &&
     is_direction_done(data->list, RIGHT) == 0) {
         move_pos(data, 1, RIGHT);
     } else if (data->i + 1 < count_lines(data->buffer) &&
-    data->tab[data->i + 1][data->j] == 2 &&
+    data->tab[data->i + 1][data->j] == '*' &&
     is_direction_done(data->list, DOWN) == 0) {
         move_pos(data, 0, DOWN);
-    } else if (data->i - 1 >= 0 && data->tab[data->i - 1][data->j] == 2 &&
+    } else if (data->i - 1 >= 0 && data->tab[data->i - 1][data->j] == '*' &&
     is_direction_done(data->list, UP) == 0) {
         move_pos(data, 0, UP);
-    } else if (data->j - 1 >= 0 && data->tab[data->i][data->j - 1] == 2 &&
+    } else if (data->j - 1 >= 0 && data->tab[data->i][data->j - 1] == '*' &&
     is_direction_done(data->list, LEFT) == 0) {
         move_pos(data, 1, LEFT);
     } else {
@@ -82,7 +82,7 @@ void algorithm(data_t *data)
 {
     data->i = 0;
     data->j = 0;
-    data->tab[0][0] = 3;
+    data->tab[0][0] = 'o';
     while (data->i < count_lines(data->buffer) - 1 ||
     data->j < count_columns(data->buffer) - 1) {
         do_algo(data);

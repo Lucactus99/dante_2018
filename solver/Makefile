@@ -10,7 +10,7 @@
 CC		:= gcc
 
 NAME		:= solver
-FILES		:= main algorithm create_int_tab error list useful_functions
+FILES		:= main algorithm error list useful_functions transform_2d
 
 SRC_NAMES 	:= $(addsuffix .c, $(FILES))
 SRC		:= $(addprefix src/, $(SRC_NAMES))

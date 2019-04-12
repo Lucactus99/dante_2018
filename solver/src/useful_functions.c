@@ -27,26 +27,10 @@ int count_columns(char *buffer)
     return (counter);
 }
 
-void display_int_tab(int **tab, char *buffer)
+void display_final_tab(char **tab, char *buffer)
 {
     for (int i = 0; i < count_lines(buffer); i++) {
-        for (int j = 0; j < count_columns(buffer); j++)
-            printf("%d", tab[i][j]);
-        printf("\n");
-    }
-}
-
-void display_final_tab(int **tab, char *buffer)
-{
-    for (int i = 0; i < count_lines(buffer); i++) {
-        for (int j = 0; j < count_columns(buffer); j++) {
-            if (tab[i][j] == 1)
-                printf("X");
-            else if (tab[i][j] == 3)
-                printf("o");
-            else
-                printf("*");
-        }
+        printf("%s", tab[i]);
         if (i < count_lines(buffer) - 1)
             printf("\n");
     }

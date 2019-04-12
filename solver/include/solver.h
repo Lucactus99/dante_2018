@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 
 enum direction {
     LEFT,
@@ -35,7 +36,7 @@ typedef struct list_s {
 
 typedef struct data_s {
     char *buffer;
-    int **tab;
+    char **tab;
     int i;
     int j;
     list_t *list;
@@ -51,13 +52,13 @@ int is_direction_done(list_t *, int);
 // USEFUL
 int count_lines(char *);
 int count_columns(char *);
-
+char **transform_2d(char *tmp, char sep);
 // ERROR
 int error_handling_solver(char *);
 
 // ALGORITHM
 int **create_int_tab(char *);
-void display_final_tab(int **, char *);
+void display_final_tab(char **, char *);
 void algorithm(data_t *data);
 
 #endif /* !SOLVER_H_ */

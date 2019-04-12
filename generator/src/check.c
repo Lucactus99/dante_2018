@@ -79,7 +79,7 @@ static int do_algo(data_t *data)
     return (0);
 }
 
-int algorithm(data_t *data)
+int checker(data_t *data)
 {
     data->i = 0;
     data->j = 0;
