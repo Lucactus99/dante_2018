@@ -34,7 +34,7 @@ static char *open_file(int ac, char **av)
     if (size <= 0)
         exit(84);
     if (size >= 1000000) {
-        printf("No solution found");
+        printf("no solution found");
         exit(0);
     }
     buffer[sb.st_size] = '\0';
