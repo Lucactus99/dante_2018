@@ -14,8 +14,10 @@ static int get_fd(int ac, char **av)
     if (ac != 2)
         exit(84);
     fd = open(av[1], O_RDONLY);
-    if (fd < 0)
+    if (fd < 0) {
+        perror("fd");
         exit(84);
+    }
     return (fd);
 }
 
