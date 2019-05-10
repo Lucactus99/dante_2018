@@ -18,7 +18,7 @@ void write_in_file(data_t *data)
     if (fp == NULL)
         exit(84);
     for (int i = 0; i < data->height; i++) {
-        for (int j = 0; j < data->width; j++) {
+        for (int j = 0; j <= data->width; j++) {
             if (data->tab[i][j] == 1)
                 fprintf(fp, "X");
             else
